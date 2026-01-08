@@ -20,41 +20,18 @@ export default async function ProductDetailPage({
     notFound()
   }
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Product',
-    name: product.name,
-    image: product.images,
-    description: product.description,
-    brand: {
-      '@type': 'Brand',
-      name: 'SV Water Solutions'
-    },
-    offers: {
-      '@type': 'Offer',
-      url: `https://svwatersolutions.com/water-purifiers/${product.slug}`,
-      priceCurrency: 'INR',
-      price: product.price,
-      availability: product.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-      seller: {
-        '@type': 'Organization',
-        name: 'SV Water Solutions'
-      }
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: product.rating,
-      reviewCount: product.reviews
-    }
-  }
+  const relatedProducts = products
+    .filter((p) => p.id !== product.id && p.category === product.category)
+    .slice(0, 4)
+    .map(p => ({
+        id: p.id,
+        slug: p.slug,
+        name: p.name,
+        image: p.image,
+        rating: p.rating,
+        price: p.price,
+        originalPrice: p.originalPrice
+    }))
 
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <ProductClient product={product} />
-    </>
-  )
+  return <ProductClient product={product} relatedProducts={relatedProducts} />
 }
