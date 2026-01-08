@@ -8,7 +8,11 @@ export function generateStaticParams() {
   }))
 }
 
-export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ProductDetailPage({ 
+  params 
+}: { 
+  params: Promise<{ slug: string }> 
+}) {
   const { slug } = await params
   const product = getProductBySlug(slug)
 
@@ -50,7 +54,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ProductClient product={product} allProducts={products} />
+      <ProductClient product={product} />
     </>
   )
 }

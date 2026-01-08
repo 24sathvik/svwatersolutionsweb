@@ -19,14 +19,9 @@ import {
   Phone,
   ChevronLeft
 } from 'lucide-react'
-import { Product } from '@/lib/products'
+import { Product, products } from '@/lib/products'
 
-interface ProductClientProps {
-  product: Product
-  allProducts: Product[]
-}
-
-export default function ProductClient({ product, allProducts }: ProductClientProps) {
+export default function ProductClient({ product }: { product: Product }) {
   const [selectedImage, setSelectedImage] = useState(0)
 
   const formatPrice = (price: number) => {
@@ -281,7 +276,7 @@ export default function ProductClient({ product, allProducts }: ProductClientPro
         <div className="mt-12">
           <h2 className="mb-6 text-2xl font-bold">You May Also Like</h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {allProducts
+            {products
               .filter((p) => p.id !== product.id && p.category === product.category)
               .slice(0, 4)
               .map((relatedProduct) => (
@@ -314,19 +309,19 @@ export default function ProductClient({ product, allProducts }: ProductClientPro
                     </CardContent>
                   </Link>
                   <div className="px-4 pb-4">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="w-full border-green-500 text-green-600 hover:bg-green-600 hover:text-white hover:border-green-600 transition-all"
-                        onClick={(e) => {
-                          e.preventDefault()
-                          const msg = encodeURIComponent(`Hi, I'm interested in ${relatedProduct.name}. Please share details.`)
-                          window.open(`https://wa.me/918297612490?text=${msg}`, '_blank')
-                        }}
-                      >
-                        <MessageCircle className="mr-2 h-4 w-4" />
-                        Enquire
-                      </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full border-green-500 text-green-600 hover:bg-green-600 hover:text-white hover:border-green-600 transition-all"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        const msg = encodeURIComponent(`Hi, I'm interested in ${relatedProduct.name}. Please share details.`)
+                        window.open(`https://wa.me/918297612490?text=${msg}`, '_blank')
+                      }}
+                    >
+                      <MessageCircle className="mr-2 h-4 w-4" />
+                      Enquire
+                    </Button>
                   </div>
                 </Card>
               ))}
