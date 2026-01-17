@@ -96,6 +96,7 @@
         "three-globe": "^2.43.0",
         "vaul": "^1.1.2",
         "zod": "^4.1.12"
+        "@emailjs/browser": "^4.4.1"
     },
     "devDependencies": {
         "@eslint/eslintrc": "^3.3.1",
